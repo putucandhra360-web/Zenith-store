@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenith Store - Joki & Katalog Terpercaya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(180deg, #4facfe 0%, #00f2fe 100%);
+            --glass: rgba(255, 255, 255, 0.2);
+            --glass-dark: rgba(0, 0, 0, 0.3);
+            --accent-orange: #ff9f43;
+            --accent-green: #2ecc71;
+            --text-white: #ffffff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+        body {
+            background: var(--primary-gradient);
+            min-height: 100vh;
+            color: var(--text-white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 15px;
+        }
+
+        .container { width: 100%; max-width: 480px; }
+
+        /* HEADER SECTION */
+        .header { text-align: center; margin-bottom: 25px; }
+        .logo-circle {
+            width: 100px; height: 100px; border-radius: 50%;
+            background: #000; border: 3px solid white;
+            margin: 0 auto 15px; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
+        .badge-trusted { font-size: 12px; background: var(--glass-dark); padding: 5px 15px; border-radius: 20px; display: inline-block; margin-top: 5px; }
+
+        /* BUTTONS MAIN */
+        .btn-main {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white;
+            padding: 15px;
+            margin: 10px 0;
+            width: 100%;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            transition: 0.3s;
+        }
+        .btn-main:hover { background: rgba(255,255,255,0.4); transform: translateY(-2px); }
+
+        /* SECTION VIEWS */
+        .view-section { display: none; width: 100%; animation: fadeIn 0.4s; }
+        .active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .back-btn { background: none; border: 1px solid white; color: white; padding: 6px 15px; border-radius: 20px; cursor: pointer; margin-bottom: 15px; font-size: 12px; }
+
+        /* GAME SELECTION GRID */
+        .grid-select { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
+        .card-select {
+            background: var(--glass); border-radius: 20px; padding: 15px;
+            text-align: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.2);
+            transition: 0.3s;
+        }
+        .card-select:hover { background: rgba(255,255,255,0.3); }
+        .card-select img { width: 100%; height: 85px; border-radius: 12px; object-fit: cover; margin-bottom: 10px; }
+
+        /* PRICELIST STYLING */
+        .price-box { background: var(--glass-dark); border-radius: 20px; padding: 15px; margin-top: 10px; }
+        .cat-title { color: #f1c40f; font-weight: bold; font-size: 14px; margin: 15px 0 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
+        .item-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 5px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px;
+        }
+        .item-row b { font-size: 14px; color: #fff; display: block; }
+        .item-row small { color: #ddd; font-size: 11px; }
+        .add-cart-btn {
+            background: var(--accent-green); color: white; border: none;
+            padding: 5px 10px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 11px;
+        }
+
+        /* SHOPPING CART FLOATING */
+        .cart-float {
+            position: fixed; bottom: 20px; right: 20px;
+            background: var(--accent-orange); width: 60px; height: 60px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; z-index: 1000;
+        }
+        .cart-count {
+            position: absolute; top: 0; right: 0; background: #e74c3c;
+            color: white; border-radius: 50%; padding: 2px 7px; font-size: 12px; border: 2px solid white;
+        }
+
+        /* CHECKOUT MODAL */
+        .checkout-card { background: white; color: #333; border-radius: 20px; padding: 20px; margin-top: 15px; }
+        .payment-info { background: #f8f9fa; border-radius: 12px; padding: 15px; margin: 10px 0; border-left: 4px solid #2980b9; }
+
+        footer { text-align: center; margin-top: 30px; font-size: 11px; opacity: 0.7; }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="home-view">
+        <div class="header">
+            <div class="logo-circle">
+                <img src="https://via.placeholder.com/150/000?text=ZENITH" alt="Logo">
+            </div>
+            <h1>ZENITH STORE</h1>
+            <div class="badge-trusted">✅ 100% Trusted & Fast Response</div>
+        </div>
+
+        <button class="btn-main" onclick="changeView('joki-select-view')">LIST JOKI GAME</button>
+        <button class="btn-main" onclick="changeView('katalog-select-view')">KATALOG AKUN READY</button>
+        <a href="https://whatsapp.com/channel/0029VbBIio07DAWx7BTHPW0O" class="btn-main">SALURAN TESTI (WHATSAPP)</a>
+        <a href="https://wa.me/6288211115320" class="btn-main">WHATSAPP ADMIN (CHAT)</a>
+    </div>
+
+    <div class="container view-section" id="joki-select-view">
+        <button class="back-btn" onclick="changeView('home-view')">← KEMBALI</button>
+        <h2 style="text-align:center">PILIH JOKI GAME</h2>
+        <div class="grid-select">
+            <div class="card-select" onclick="changeView('joki-blox-view')">
+                <img src="https://i.ibb.co/L6vVv9N/blox-fruits.jpg" alt="Blox Fruit">
+                <p>BLOX FRUIT</p>
+            </div>
+            <div class="card-select" onclick="changeView('joki-fish-view')">
+                <img src="https://i.ibb.co/D8mXnS4/fish-it.jpg" alt="Fish It">
+                <p>FISH IT</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container view-section" id="joki-blox-view">
+        <button class="back-btn" onclick="changeView('joki-select-view')">← KEMBALI</button>
+        <h2>JOKI BLOX FRUIT</h2>
+        <div class="price-box">
+            <div class="cat-title">JOKI LEVEL</div>
+            <div class="item-row"><span>Lv 1 - 250</span> <span>10.000 <button class="add-cart-btn" onclick="addToCart('Joki BF: Lv 1-250', 10000)">+</button></span></div>
+            <div class="item-row"><span>Lv 300 - 500</span> <span>15.000 <button class="add-cart-btn" onclick="addToCart('Joki BF: Lv 300-500', 15000)">+</button></span></div>
+            <div class="item-row"><span>Lv 600 - 720</span> <span>20.000 <button class="add-cart-btn" onclick="addToCart('Joki BF: Lv 600-720', 20000)">+</button></span></div>
+            <div class="item-row"><span>Lv 800 - 950</span> <span>25.000 <button class="add-cart-btn" onclick="addToCart('Joki BF: Lv 800-950', 25000)">+</button></span></div>
+            <div class="item-row"><span>Lv 999 - Max</span> <span>30.000 <button class="add-cart-btn" onclick="addToCart('Joki BF: Lv Max', 30000)">+</button></span></div>
+
+            <div class="cat-title">JOKI RACE</div>
+            <div class="item-row"><span>Human</span> <span>5.000 <button class="add-cart-btn" onclick="addToCart('Race BF: Human', 5000)">+</button></span></div>
+            <div class="item-row"><span>Shark / Angel</span> <span>10.000 <button class="add-cart-btn" onclick="addToCart('Race BF: Shark/Angel', 10000)">+</button></span></div>
+            <div class="item-row"><span>Mink / Cyborg / Ghoul</span> <span>15.000 <button class="add-cart-btn" onclick="addToCart('Race BF: Special', 15000)">+</button></span></div>
+            <div class="item-row"><span>Draco</span> <span>35.000 <button class="add-cart-btn" onclick="addToCart('Race BF: Draco', 35000)">+</button></span></div>
+
+            <div class="cat-title">JOKI BELLY</div>
+            <div class="item-row"><span>1M Belly</span> <span>5.000 <button class="add-cart-btn" onclick="addToCart('Belly BF: 1M', 5000)">+</button></span></div>
+            <div class="item-row"><span>2M Belly</span> <span>10.000 <button class="add-cart-btn" onclick="addToCart('Belly BF: 2M', 10000)">+</button></span></div>
+            <div class="item-row"><span>3M Belly</span> <span>15.000 <button class="add-cart-btn" onclick="addToCart('Belly BF: 3M', 15000)">+</button></span></div>
+            
+            <div class="cat-title">LAINNYA</div>
+            <div class="item-row"><span>Joki Pedang / Misi / Buah</span> <span>PM ADMIN <button class="add-cart-btn" onclick="window.location.href='https://wa.me/6288211115320'">CHAT</button></span></div>
+        </div>
+    </div>
+
+    <div class="container view-section" id="joki-fish-view">
+        <button class="back-btn" onclick="changeView('joki-select-view')">← KEMBALI</button>
+        <h2>JOKI FISH IT</h2>
+        <div class="price-box">
+            <div class="cat-title">ROD & COIN</div>
+            <div class="item-row"><span>Rod Goshfin</span> <span>10.000 <button class="add-cart-btn" onclick="addToCart('Joki FI: Rod Goshfin', 10000)">+</button></span></div>
+            <div class="item-row"><span>Rod Element</span> <span>25.000 <button class="add-cart-btn" onclick="addToCart('Joki FI: Rod Element', 25000)">+</button></span></div>
+            <div class="item-row"><span>1M Coin</span> <span>5.000 <button class="add-cart-btn" onclick="addToCart('FI Coin: 1M', 5000)">+</button></span></div>
+            <div class="item-row"><span>5M Coin</span> <span>20.000 <button class="add-cart-btn" onclick="addToCart('FI Coin: 5M', 20000)">+</button></span></div>
+
+            <div class="cat-title">BATU PENYIHIR & MISI</div>
+            <div class="item-row"><span>10 Batu Penyihir</span> <span>3.000 <button class="add-cart-btn" onclick="addToCart('FI: 10 Batu', 3000)">+</button></span></div>
+            <div class="item-row"><span>Selesaikan Misi</span> <span>15.000 <button class="add-cart-btn" onclick="addToCart('FI: Misi', 15000)">+</button></span></div>
+
+            <div class="cat-title">SC TUMBAL (SECRET)</div>
+            <div class="item-row"><span>Sotong / Hiu Blob</span> <span>3.000 <button class="add-cart-btn" onclick="addToCart('SC: Sotong/Blob', 3000)">+</button></span></div>
+            <div class="item-row"><span>The Worm</span> <span>6.000 <button class="add-cart-btn" onclick="addToCart('SC: The Worm', 6000)">+</button></span></div>
+            <div class="item-row"><span>Orca</span> <span>9.000 <button class="add-cart-btn" onclick="addToCart('SC: Orca', 9000)">+</button></span></div>
+            <div class="item-row"><span>Whale</span> <span>12.000 <button class="add-cart-btn" onclick="addToCart('SC: Whale', 12000)">+</button></span></div>
+            <div class="item-row"><span>King Jelly</span> <span>14.000 <button class="add-cart-btn" onclick="addToCart('SC: King Jelly', 14000)">+</button></span></div>
+            <div class="item-row"><span>Mossasaurus</span> <span>8.000 <button class="add-cart-btn" onclick="addToCart('SC: Mossasaurus', 8000)">+</button></span></div>
+        </div>
+    </div>
+
+    <div class="container view-section" id="katalog-select-view">
+        <button class="back-btn" onclick="changeView('home-view')">← KEMBALI</button>
+        <h2 style="text-align:center">KATALOG AKUN</h2>
+        <div class="grid-select">
+            <div class="card-select" onclick="changeView('katalog-blox-view')">
+                <img src="https://i.ibb.co/L6vVv9N/blox-fruits.jpg" alt="Blox Fruit">
+                <p>AKUN BLOX FRUIT</p>
+            </div>
+            <div class="card-select" onclick="changeView('katalog-fish-view')">
+                <img src="https://i.ibb.co/D8mXnS4/fish-it.jpg" alt="Fish It">
+                <p>AKUN FISH IT</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container view-section" id="katalog-blox-view">
+        <button class="back-btn" onclick="changeView('katalog-select-view')">← KEMBALI</button>
+        <h2>KATALOG BLOX FRUIT</h2>
+        <div class="price-box">
+            <div class="item-row">
+                <span>
+                    <b>AKUN LV MAX (DOUGH)</b>
+                    <small>Fruit Dough, Rengoku, Soul Guitar, Shark, 1M Belly</small>
+                </span>
+                <span>20.000 <button class="add-cart-btn" onclick="addToCart('Acc BF: Dough Max', 20000)">+</button></span>
+            </div>
+            <div class="item-row">
+                <span>
+                    <b>AKUN LV MAX (VENOM)</b>
+                    <small>Fruit Venom, Rengoku, Soul Guitar</small>
+                </span>
+                <span>15.000 <button class="add-cart-btn" onclick="addToCart('Acc BF: Venom Max', 15000)">+</button></span>
+            </div>
+            <div class="item-row"><span>LAIN-LAIN / REQUEST</span> <span>PM ADMIN <button class="add-cart-btn" onclick="window.location.href='https://wa.me/6288211115320'">CHAT</button></span></div>
+        </div>
+    </div>
+
+    <div class="container view-section" id="katalog-fish-view">
+        <button class="back-btn" onclick="changeView('katalog-select-view')">← KEMBALI</button>
+        <h2>KATALOG FISH IT</h2>
+        <div class="price-box">
+            <div class="item-row"><span>Polosan Goshfin + Bonus Coin</span> <span>15.000 <button class="add-cart-btn" onclick="addToCart('Acc FI: Goshfin Polosan', 15000)">+</button></span></div>
+            <div class="item-row"><span>Goshfin + Coin + Secret</span> <span>20.000 <button class="add-cart-btn" onclick="addToCart('Acc FI: Goshfin+SC', 20000)">+</button></span></div>
+            <div class="item-row"><span>Element + Bonus Coin</span> <span>25.000 <button class="add-cart-btn" onclick="addToCart('Acc FI: Element Polosan', 25000)">+</button></span></div>
+            <div class="item-row"><span>Element + Coin + Secret</span> <span>PM ADMIN <button class="add-cart-btn" onclick="window.location.href='https://wa.me/6288211115320'">CHAT</button></span></div>
+        </div>
+    </div>
+
+    <div class="container view-section" id="cart-view">
+        <button class="back-btn" onclick="changeView('home-view')">← KEMBALI</button>
+        <h2>KERANJANG SAYA</h2>
+        <div id="cart-items-container" class="price-box">
+            </div>
+        <div style="text-align: right; margin: 15px 0; font-size: 18px; font-weight: bold;">
+            TOTAL: Rp <span id="cart-total-price">0</span>
+        </div>
+
+        <div class="checkout-card">
+            <h3>PILIH PEMBAYARAN</h3>
+            <div class="payment-info">
+                <p><b>DANA:</b> 088211115320</p>
+                <p><b>QRIS:</b> Chat Admin via WA</p>
+            </div>
+            <p style="font-size: 11px; color: #666; margin-bottom: 10px;">*Klik tombol di bawah untuk konfirmasi pesanan dan kirim bukti transfer ke WhatsApp.</p>
+            <button class="btn-main" style="background: var(--accent-green); color: white; border: none;" onclick="sendToWhatsApp()">CHECKOUT KE WHATSAPP</button>
+        </div>
+    </div>
+
+    <div class="cart-float" onclick="changeView('cart-view')">
+        🛒 <span class="cart-count" id="cart-count">0</span>
+    </div>
+
+    <footer>
+        ZENITH STORE © 2025 | Dibuat Khusus Untuk Pelanggan Setia
+    </footer>
+
+    <script>
+        let cart = [];
+
+        function changeView(viewId) {
+            document.querySelectorAll('.view-section, .container').forEach(v => v.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            if(viewId === 'cart-view') renderCart();
+            window.scrollTo(0, 0);
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCartCount();
+            alert(name + " ditambahkan ke keranjang!");
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartCount();
+            renderCart();
+        }
+
+        function updateCartCount() {
+            document.getElementById('cart-count').innerText = cart.length;
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            const totalDisplay = document.getElementById('cart-total-price');
+            container.innerHTML = "";
+            let total = 0;
+
+            if (cart.length === 0) {
+                container.innerHTML = "<p style='text-align:center; padding: 20px;'>Keranjang kosong...</p>";
+            } else {
+                cart.forEach((item, index) => {
+                    total += item.price;
+                    container.innerHTML += `
+                        <div class="item-row">
+                            <span>${item.name}</span>
+                            <span>Rp ${item.price.toLocaleString()} <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; font-weight:bold; margin-left:10px;">[X]</button></span>
+                        </div>
+                    `;
+                });
+            }
+            totalDisplay.innerText = total.toLocaleString();
+        }
+
+        function sendToWhatsApp() {
+            if (cart.length === 0) return alert("Keranjang belanja kosong!");
+            
+            let message = "Halo Zenith Store, saya ingin order:%0A";
+            let total = 0;
+            cart.forEach((item) => {
+                message += `- ${item.name} (Rp ${item.price.toLocaleString()})%0A`;
+                total += item.price;
+            });
+            message += `%0ATotal: Rp ${total.toLocaleString()}%0APembayaran: DANA / QRIS`;
+            
+            window.location.href = `https://wa.me/6288211115320?text=${message}`;
+        }
+    </script>
+</body>
+</html>
