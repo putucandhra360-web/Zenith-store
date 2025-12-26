@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZENITH STR - Trusted Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(180deg, #58CCFF 0%, #0084FF 100%);
+            --card-bg: rgba(255, 255, 255, 0.2);
+            --btn-bg: rgba(255, 255, 255, 0.15);
+            --order-green: #2ecc71;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--bg-gradient);
+            color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Header Browser Bar */
+        .header-bar {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        /* Container Utama */
+        .container {
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        /* Logo Bulat */
+        .logo-container {
+            width: 90px;
+            height: 90px;
+            background: #000; /* Background hitam di belakang logo */
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            overflow: hidden;
+            border: 3px solid rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 { font-size: 26px; margin: 5px 0; font-weight: bold; }
+        .status { font-size: 14px; opacity: 0.9; margin-bottom: 25px; }
+
+        /* Tombol Utama */
+        .main-btn {
+            background: var(--btn-bg);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 14px;
+            border-radius: 30px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            display: block;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .main-btn:hover { background: rgba(255, 255, 255, 0.3); }
+
+        /* Back Button */
+        .back-nav {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            display: inline-block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Grid Game */
+        .game-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 15px;
+            cursor: pointer;
+        }
+        .game-card img { width: 100%; border-radius: 10px; margin-bottom: 10px; }
+
+        /* Dropdown Lists */
+        .dropdown {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            text-align: left;
+        }
+        .dropdown-header {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .dropdown-content {
+            display: none;
+            padding: 10px;
+            background: rgba(0,0,0,0.1);
+        }
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 5px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 14px;
+        }
+
+        /* Order Button */
+        .order-btn {
+            background: var(--order-green);
+            padding: 15px;
+            border-radius: 10px;
+            display: block;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        /* Section Handling */
+        .section { display: none; }
+        .active { display: block; }
+    </style>
+</head>
+<body>
+
+<div class="header-bar">
+    <i class="fas fa-search"></i>
+    <span>Zenith Store - Trusted Shop <i class="fas fa-check-circle" style="color: #2ecc71;"></i></span>
+    <i class="fas fa-share-alt"></i>
+</div>
+
+<div class="container">
+    
+    <div id="menu-utama" class="section active">
+        <div class="logo-container">
+            <img src="https://i.ibb.co/Y7YxGqQ/logo-zenith.jpg" alt="ZENITH STR">
+        </div>
+        <h1>ZENITH STR</h1>
+        <p class="status">100% Aman & Trusted</p>
+
+        <div class="main-btn" onclick="showSection('pilih-game')">Pricelist Joki</div>
+        <div class="main-btn" onclick="showSection('katalog-akun')">Katalog Akun</div>
+        <a href="https://whatsapp.com/channel/0029VbBIio07DAWx7BTHPW0O" class="main-btn">Saluran Testi</a>
+        <a href="https://wa.me/6288211115320" class="main-btn">Tiktok</a>
+    </div>
+
+    <div id="pilih-game" class="section">
+        <div class="back-nav" onclick="showSection('menu-utama')">← Kembali</div>
+        <h3>Pilih Game Joki</h3>
+        <div class="game-grid">
+            <div class="game-card" onclick="showSection('joki-blox')">
+                <img src="https://img.youtube.com/vi/T9vA79v7z3Y/maxresdefault.jpg" alt="Bloxfruits">
+                <p>Bloxfruits</p>
+            </div>
+            <div class="game-card" onclick="showSection('joki-fish')">
+                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=Fish+It" alt="Fish It">
+                <p>Fish It</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="joki-blox" class="section">
+        <div class="back-nav" onclick="showSection('pilih-game')">← Pilih Game Lain</div>
+        <h3>JOKI BLOX FRUITS</h3>
+        
+        <div class="dropdown">
+            <div class="dropdown-header" onclick="toggleD('lvl-blox')">Joki Level <span>▼</span></div>
+            <div id="lvl-blox" class="dropdown-content">
+                <div class="price-row"><span>Lvl 1 - 250</span> <span>10.000</span></div>
+                <div class="price-row"><span>Lvl 300 - 500</span> <span>15.000</span></div>
+                <div class="price-row"><span>Lvl 600 - 720</span> <span>20.000</span></div>
+                <div class="price-row"><span>Lvl 800 - 950</span> <span>25.000</span></div>
+                <div class="price-row"><span>Lvl 999 - MAX</span> <span>30.000</span></div>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <div class="dropdown-header" onclick="toggleD('race-blox')">Joki Race <span>▼</span></div>
+            <div id="race-blox" class="dropdown-content">
+                <div class="price-row"><span>Race Human</span> <span>5.000</span></div>
+                <div class="price-row"><span>Race Shark / Angel</span> <span>10.000</span></div>
+                <div class="price-row"><span>Race Mink / Cyborg / Ghoul</span> <span>15.000</span></div>
+                <div class="price-row"><span>Race Draco</span> <span>35.000</span></div>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <div class="dropdown-header" onclick="toggleD('belly-blox')">Joki Belly <span>▼</span></div>
+            <div id="belly-blox" class="dropdown-content">
+                <div class="price-row"><span>1M Belly</span> <span>5.000</span></div>
+                <div class="price-row"><span>2M Belly</span> <span>10.000</span></div>
+                <div class="price-row"><span>3M Belly</span> <span>15.000</span></div>
+                <p style="font-size: 11px; padding: 5px;">*Harga berbeda di Sea yang berbeda</p>
+            </div>
+        </div>
+
+        <div class="main-btn" onclick="window.location.href='https://wa.me/6288211115320'">Joki Pedang (PM Admin)</div>
+        <div class="main-btn" onclick="window.location.href='https://wa.me/6288211115320'">Joki Misi (PM Admin)</div>
+        <div class="main-btn" onclick="window.location.href='https://wa.me/6288211115320'">Joki Level Buah (PM Admin)</div>
+
+        <a href="https://wa.me/6288211115320" class="order-btn">Order via WA/Dm Tiktok</a>
+    </div>
+
+    <div id="joki-fish" class="section">
+        <div class="back-nav" onclick="showSection('pilih-game')">← Pilih Game Lain</div>
+        <h3>JOKI FISH IT</h3>
+
+        <div class="dropdown">
+            <div class="dropdown-header" onclick="toggleD('rod-fish')">Joki Rod <span>▼</span></div>
+            <div id="rod-fish" class="dropdown-content">
+                <div class="price-row"><span>Rod Goshfin</span> <span>10.000</span></div>
+                <div class="price-row"><span>Rod Element</span> <span>25.000</span></div>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <div class="dropdown-header" onclick="toggleD('coin-fish')">Joki Coin <span>▼</span></div>
+            <div id="coin-fish" class="dropdown-content">
+                <div class="price-row"><span>1M Coin</span> <span>5.000</span></div>
+                <div class="price-row"><span>2M Coin</span> <span>10.000</span></div>
+                <div class="price-row"><span>3M Coin</span> <span>12.000</span></div>
+                <div class="price-row"><span>4M Coin</span> <span>15.000</span></div>
+                <div class="price-row"><span>5M Coin</span> <span>20.000</span></div>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <div class="dropdown-header" onclick="toggleD('sc-fish')">Secret (SC) Tumbal <span>▼</span></div>
+            <div id="sc-fish" class="dropdown-content">
+                <div class="price-row"><span>Sotong / Hiu Blob</span> <span>3.000</span></div>
+                <div class="price-row"><span>The Worm</span> <span>6.000</span></div>
+                <div class="price-row"><span>Mossasaurus</span> <span>8.000</span></div>
+                <div class="price-row"><span>Orca</span> <span>9.000</span></div>
+                <div class="price-row"><span>Whale</span> <span>12.000</span></div>
+                <div class="price-row"><span>King Jelly</span> <span>14.000</span></div>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <div class="dropdown-header" onclick="toggleD('batu-fish')">Joki Batu Penyihir <span>▼</span></div>
+            <div id="batu-fish" class="dropdown-content">
+                <div class="price-row"><span>10 Batu</span> <span>3.000</span></div>
+                <div class="price-row"><span>20 Batu</span> <span>6.000</span></div>
+                <div class="price-row"><span>30 Batu</span> <span>10.000</span></div>
+            </div>
+        </div>
+
+        <div class="main-btn" onclick="window.location.href='https://wa.me/6288211115320'">Selesaikan Misi (15.000)</div>
+
+        <a href="https://wa.me/6288211115320" class="order-btn">Order via WA/Dm Tiktok</a>
+    </div>
+
+    <div id="katalog-akun" class="section">
+        <div class="back-nav" onclick="showSection('menu-utama')">← Kembali</div>
+        <h3>Katalog Akun Ready</h3>
+
+        <div class="dropdown">
+            <div class="dropdown-header" onclick="toggleD('acc-fish')">Akun Fish It <span>▼</span></div>
+            <div id="acc-fish" class="dropdown-content">
+                <div class="price-row"><span>Polosan Goshfin + Coin</span> <span>15.000</span></div>
+                <div class="price-row"><span>Goshfin + Coin + Secret</span> <span>20.000</span></div>
+                <div class="price-row"><span>Akun Element + Coin</span> <span>25.000</span></div>
+                <div class="price-row"><span>Element + Coin + Secret</span> <span>PM Admin</span></div>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <div class="dropdown-header" onclick="toggleD('acc-blox')">Akun Blox Fruit <span>▼</span></div>
+            <div id="acc-blox" class="dropdown-content">
+                <div class="price-row"><span>Hubungi Admin untuk stok</span> <span>READY</span></div>
+            </div>
+        </div>
+
+        <a href="https://wa.me/6288211115320" class="order-btn">Hubungi Admin</a>
+    </div>
+
+</div>
+
+<script>
+    // Fungsi pindah halaman/section
+    function showSection(id) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    // Fungsi buka tutup list harga (dropdown)
+    function toggleD(id) {
+        let x = document.getElementById(id);
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+    }
+</script>
+
+</body>
+</html>
